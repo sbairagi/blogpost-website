@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Contact
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from blog.models import Post
 # Create your views here.
@@ -55,6 +56,22 @@ def handelSignup(request):
         pass2 = request.POST['pass2']
 
         #check for errorneous inputs
+        #username should be under 10 character
+        if len(username) > 10:
+            messages.error(request,"username must be 10 characters")
+            return redirect('home')
+
+        #username should be alphanumeric
+
+        if not username.isalnum() :
+            messages.error(request,"username should only contains laters and characters")
+            return redirect('home')
+
+        #password should match
+
+        if pass1 != pass2 :
+            messages.error(request,"password do not match")
+            return redirect('home')
 
 
         #create the user
@@ -66,4 +83,27 @@ def handelSignup(request):
         return redirect('home')
 
     else:
-        return HttpResponse('<h1>404 - Not Found</h1>')
+        return HttpResponse('<br><br><br><br><br><br><h1 align="center">404 - Not Found</h1>')
+
+
+
+def handelLogin(request):
+    loginusername = request.POST['loginusername']
+    loginpassword = request.POST['loginpassword']
+    user = authenticate(username=loginusername, password=loginpassword)
+    if user is not None:
+        login(request, user)
+        messages.success(request,"successfully logedd in")
+        return redirect('home')
+    else:
+        messages.error(request,"invalid credential, please try again. ")
+        return redirect('home')
+
+    return HttpResponse('<br><br><br><br><br><br><h1 align="center">404 - Not Found</h1>')
+
+
+
+def handelLogout(request):
+    logout(request)
+    messages.success(request,"successfully logedd out")
+    return redirect('home')
