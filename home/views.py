@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from .models import Contact
 from django.contrib import messages
+from django.contrib.auth.models import User
 from blog.models import Post
 # Create your views here.
 def home(request):
@@ -42,3 +44,26 @@ def search(request):
     return render(request,"home/search.html", params)
 
 
+def handelSignup(request):
+    if request.method == 'POST':
+        #get the post perameter
+        username = request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+
+        #check for errorneous inputs
+
+
+        #create the user
+        myuser = User.objects.create_user(username, email, pass1)
+        myuser.first_name = fname
+        myuser.last_name = lname
+        myuser.save()
+        messages.success(request, "your icoder acount has been successfully created")
+        return redirect('home')
+
+    else:
+        return HttpResponse('<h1>404 - Not Found</h1>')

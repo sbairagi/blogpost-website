@@ -79,7 +79,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="/signup" method="post">{% csrf_token %}
             <div class="form-group">
               <label for="username">User Name</label>
               <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username">
@@ -98,15 +98,15 @@
             </div>
             <div class="form-group">
               <label for="pass1">Choose a Password</label>
-              <input type="email" class="form-control" id="pass1" name="pass1" placeholder="Choose your password">
+              <input type="text" class="form-control" id="pass1" name="pass1" placeholder="Choose your password">
             </div>
             <div class="form-group">
               <label for="pass2">Conform Password</label>
-              <input type="email" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again">
+              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again">
             </div>
 
             
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
         <div class="modal-footer">
@@ -116,7 +116,7 @@
   </div>
 
   <!-- SignUp Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal fade" id="loginModal" tabindex="-1"  role="dialog" aria-labelledby="loginModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -126,16 +126,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form >
             <div class="form-group">
               <label for="username">User Name</label>
               <input type="text" class="form-control" id="loginusername" name="username" placeholder="Enter username">
             </div>
             <div class="form-group">
               <label for="pass">Password</label>
-              <input type="email" class="form-control" id="pass" name="pass" placeholder="Enter your password">
+              <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter your password">
             </div>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
         <div class="modal-footer">
