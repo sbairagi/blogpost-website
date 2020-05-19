@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from blog.models import Post
-# Create your views here.
+
+# HTML Pages
 def home(request):
     return render(request,'home/home.html')
 
@@ -44,7 +45,7 @@ def search(request):
     params = {'allposts': allposts, 'query':query}
     return render(request,"home/search.html", params)
 
-
+#Authentication APIs
 def handelSignup(request):
     if request.method == 'POST':
         #get the post perameter
@@ -85,8 +86,6 @@ def handelSignup(request):
     else:
         return HttpResponse('<br><br><br><br><br><br><h1 align="center">404 - Not Found</h1>')
 
-
-
 def handelLogin(request):
     loginusername = request.POST['loginusername']
     loginpassword = request.POST['loginpassword']
@@ -94,16 +93,14 @@ def handelLogin(request):
     if user is not None:
         login(request, user)
         messages.success(request,"successfully logedd in")
-        return redirect('home')
+        return redirect('/')
     else:
         messages.error(request,"invalid credential, please try again. ")
-        return redirect('home')
+        return redirect('/')
 
     return HttpResponse('<br><br><br><br><br><br><h1 align="center">404 - Not Found</h1>')
-
-
 
 def handelLogout(request):
     logout(request)
     messages.success(request,"successfully logedd out")
-    return redirect('home')
+    return redirect('/')
